@@ -60,25 +60,44 @@ void ShowTempInfo(graph_ptr gp, hotel_site_ptr head, int StartPos, int DestPos, 
 		printf("H-%d", temp->Hotel);
 		temp = temp->next;
 	}
-	
-	// Day
+	// Hotel Rate
 	temp = head; IdxPos = 15;
-	gotoxy(IdxPos, IdyPos + 6); printf("[기간]\t");
+	gotoxy(IdxPos, IdyPos + 5); printf("[평점]\t");
 	while (temp != NULL) {
 		IdxPos += 12;
-		gotoxy(IdxPos, IdyPos + 6);
+		gotoxy(IdxPos, IdyPos + 5);
+		switch (temp->rate) {
+		case 1:
+			printf("★☆☆");
+			break;
+		case 2:
+			printf("★★☆");
+			break;
+		case 3:
+			printf("★★★");
+			break;
+		}
+		temp = temp->next;
+	}
+
+	// Day
+	temp = head; IdxPos = 15;
+	gotoxy(IdxPos, IdyPos + 7); printf("[기간]\t");
+	while (temp != NULL) {
+		IdxPos += 12;
+		gotoxy(IdxPos, IdyPos + 7);
 		printf("%d", temp->Day);
 		DaySum += temp->Day;
 		temp = temp->next;
 	}
-	gotoxy(82, IdyPos + 7); printf("\t\t\t[총 기간] : %d", DaySum);
-	gotoxy(82, IdyPos + 8); printf("\t\t\t[잔액] : %d", CostSum);
-	gotoxy(1, IdyPos + 9); printf("---------------------------------------------------------------------------------------------------------------------");
+	gotoxy(82, IdyPos + 8); printf("\t\t\t[총 기간] : %d", DaySum);
+	gotoxy(82, IdyPos + 9); printf("\t\t\t[잔액] : %d", CostSum);
+	gotoxy(1, IdyPos + 10); printf("---------------------------------------------------------------------------------------------------------------------");
 
 }
 
 int askConfirmUI() {
-	gotoxy(50, 28); printf("예약하시겠습니까? (Y/N)");
+	gotoxy(50, 29); printf("예약하시겠습니까? (Y/N)");
 	char nKey;
 	scanf("%c", &nKey);
 	if (nKey == 'y' || nKey == 'Y')

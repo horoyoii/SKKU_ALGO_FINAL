@@ -5,19 +5,20 @@ HT_RBnode_ptr HT_MakeRBT(void){
 	return HT_Sentinel;
 }
 
-HT_RBnode_ptr HT_MakeRBNode(int KEY, int hotelNum) {
+HT_RBnode_ptr HT_MakeRBNode(int KEY, int hotelNum, int rate) {
 	HT_RBnode_ptr newNode = (HT_RBnode_ptr)malloc(sizeof(HT_RBNode));
 	newNode->left = HT_Sentinel;
 	newNode->right = HT_Sentinel;
 	newNode->p = HT_Sentinel;
 	newNode->Key = KEY;
+	newNode->rate = rate;
 	newNode->Hotel_Num = hotelNum;
 	newNode->color = RED;
 	return newNode;
 }
 
-bool HT_RB_INSERT(HT_RBnode_ptr * Root, int KEY, int hotelNum) {
-	HT_RBnode_ptr z = HT_MakeRBNode(KEY, hotelNum);
+bool HT_RB_INSERT(HT_RBnode_ptr * Root, int KEY, int hotelNum, int rate) {
+	HT_RBnode_ptr z = HT_MakeRBNode(KEY, hotelNum, rate);
 	HT_RBnode_ptr parentNode = HT_Sentinel;
 	HT_RBnode_ptr x = *Root;
 

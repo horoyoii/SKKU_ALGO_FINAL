@@ -8,6 +8,7 @@ typedef struct HT_RBNODE *HT_RBnode_ptr;
 typedef struct HT_RBNODE {
 	int Key; // Price
 	int Hotel_Num; // hotel Num 
+	int rate; 
 	HT_RBnode_ptr left;
 	HT_RBnode_ptr right;
 	HT_RBnode_ptr p;
@@ -15,7 +16,7 @@ typedef struct HT_RBNODE {
 }HT_RBNode;
 
 // ===========================================================
-HT_RBnode_ptr HT_MakeRBNode(int KEY, int hotelNum);
+HT_RBnode_ptr HT_MakeRBNode(int KEY, int hotelNum, int rate);
 void HT_LEFT_ROTATE(HT_RBnode_ptr *Root, HT_RBnode_ptr x);
 void HT_RIGHT_ROTATE(HT_RBnode_ptr *Root, HT_RBnode_ptr x);
 HT_RBnode_ptr HT_TREE_SUCCESSOR(HT_RBnode_ptr target);
@@ -28,7 +29,7 @@ HT_RBnode_ptr HT_Sentinel; // Global 1
 void HT_MakeSentinel();
 HT_RBnode_ptr HT_MakeRBT(void);
 // INSERT ===========================================================
-bool HT_RB_INSERT(HT_RBnode_ptr *Root, int KEY, int hotelNum);
+bool HT_RB_INSERT(HT_RBnode_ptr *Root, int KEY, int hotelNum, int rate);
 void HT_RB_INSERT_FIXUP(HT_RBnode_ptr *Root, HT_RBnode_ptr z);
 
 // DELETE===========================================================

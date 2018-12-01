@@ -7,6 +7,7 @@ typedef struct HOTEL_SITE_MATCH {
 	int CityNum;      //HS_SATIS에서 채울부분, 도시 이름
 	int Preference;		//평점
 	int Hotel;         //HS_SATIS에서 채울부분, 호텔 이름
+	int rate; // New
 	int Satisfaction;   //HS_SATIS에서 채울부분, 만족도
 	int Price;          //HS_SATIS에서 채울부분, 호텔 가격
 	int Day;         //HS_DAY 묵는 날

@@ -68,6 +68,7 @@ hotel_site_ptr HS_SATISFACTION(node_ptr node, graph_ptr gp, int budget) { //도시
 	//satisfaction = pricesatis + prefersatis;
 	satisfaction = preference * 400; //평점 0~5
 
+	hotelsite->rate = Hotel->rate;
 	hotelsite->CityNum = citynum;
 	hotelsite->Preference = preference;
 	hotelsite->Hotel = Hotel->Hotel_Num;
@@ -92,8 +93,6 @@ hotel_site_ptr HS_DAY(hotel_site_ptr head, int period, int sitenum) {  //도시의 
 	int satis_day; //만족도 날짜 환산
 	hotel_site_ptr ptr = head;
 	if (ptr == NULL) return NULL; //ptr NULL인지 확인
-
-
 
 	if (dayleft < 0) { //경로수가 묵는 날보다 클 때
 		return NULL;

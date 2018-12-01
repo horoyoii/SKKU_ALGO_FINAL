@@ -77,7 +77,7 @@ void CityInit(graph_ptr gp) {
 
 	// 2) init hotel info
 	short PriceFlag[1001] = { 0, };
-	int price;
+	int price, rate;
 	for (int i = 0; i < VertexNum; i++) {
 		gp->CityInfo[i].Hotel = HT_MakeRBT();
 		for (int j = 0; j < HotelNum; j++) {
@@ -85,9 +85,10 @@ void CityInit(graph_ptr gp) {
 			while (PriceFlag[price]) { // 호텔 가격 범위 1 ~ 1000
 				price = (rand() % 1000) + 1;
 			}
+			rate = (rand() % 3) + 1;
 			PriceFlag[price] = 1;
 			gp->CityInfo[i].Hotel;
-			HT_RB_INSERT(&(gp->CityInfo[i].Hotel), price, j);
+			HT_RB_INSERT(&(gp->CityInfo[i].Hotel), price, j, rate);
 		}
 		memset(PriceFlag, 0, sizeof(PriceFlag)); // ? 
 	}
