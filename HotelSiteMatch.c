@@ -10,7 +10,7 @@ hotel_site_ptr HS_MATCH(node_ptr node, graph_ptr gp, int budget, int period) { /
 
 	nptr = nptr->next;
 	while (nptr != NULL) { //경로 마다의 비용 차감
-		hotelbudget -= 20 * nptr->Weight;
+		hotelbudget -= 10 * nptr->Weight;
 		nptr = nptr->next;
 	}
 	hotelbudgetday = hotelbudget / period; //하루에 쓸 돈
@@ -27,7 +27,7 @@ hotel_site_ptr HS_MATCH(node_ptr node, graph_ptr gp, int budget, int period) { /
 
 	while (nptr != NULL) {
 		ptr->next = HS_SATISFACTION(nptr, gp, hotelbudgetday);
-		ptr->next->Budget = ptr->Budget - 20 * nptr->Weight; //호텔사이트의 예산 계속 차감 !!Weight(1~100) *20
+		ptr->next->Budget = ptr->Budget - 10 * nptr->Weight; //호텔사이트의 예산 계속 차감 !!Weight(1~100) *20
 		ptr = ptr->next;
 		nptr = nptr->next;
 		sitenum++; //노드 붙일때마다 site 수를 증가
@@ -54,8 +54,9 @@ hotel_site_ptr HS_MATCH(node_ptr node, graph_ptr gp, int budget, int period) { /
 hotel_site_ptr HS_SATISFACTION(node_ptr node, graph_ptr gp, int budget) { //도시 이름과 평점을 받으면, 만족도를 계산해서 제일 좋은 호텔 정보를 담은 노드를 리턴
 	hotel_site_ptr hotelsite = (hotel_site_ptr)malloc(sizeof(HotelSite));
 	int satisfaction;
-	//int pricesatis;
-	//int prefersatis;
+	int	pricesatis;
+	int prefersatis;
+	int hotelprefer;
 	int citynum = node->CityNum;
 	int preference = gp->CityInfo[citynum].perference;
 	HT_RBnode_ptr temp = getAllHotelinfo(gp, citynum); //citynum로 호텔 트리 들어가
@@ -63,10 +64,11 @@ hotel_site_ptr HS_SATISFACTION(node_ptr node, graph_ptr gp, int budget) { //도시
 	//if (Hotel == NULL) return NULL;
 	int price = Hotel->Key;
 
-	//pricesatis = 3000 - 3 * Hotel->Key; //가격 1~1000일때
-	//prefersatis = preference * 400; //평점 0~5
-	//satisfaction = pricesatis + prefersatis;
-	satisfaction = preference * 400; //평점 0~5
+	hotelprefer = 100 + Hotel->rate * 300;
+	pricesatis = 2000 - 2 * Hotel->Key; //가격 1~1000일때
+	prefersatis = preference * 400; //평점 0~5
+	satisfaction = hotelprefer + pricesatis + prefersatis;
+	//satisfaction = preference * 400; //평점 0~5
 
 	hotelsite->rate = Hotel->rate;
 	hotelsite->CityNum = citynum;
@@ -97,9 +99,9 @@ hotel_site_ptr HS_DAY(hotel_site_ptr head, int period, int sitenum) {  //도시의 
 	if (dayleft < 0) { //경로수가 묵는 날보다 클 때
 		return NULL;
 	}
-	else if (dayleft == 0) { //경로수가 묵는 날과 같을 때
+	/*else if (dayleft == 0) { //경로수가 묵는 날과 같을 때
 		return head;
-	}
+	}*/
 	else { //경로수보다 묵는 날이 클때
 
 		while (ptr != NULL) {//price 최저가, 남은예산
@@ -120,6 +122,7 @@ hotel_site_ptr HS_DAY(hotel_site_ptr head, int period, int sitenum) {  //도시의 
 					while (ptr != NULL) {
 						if (ptr->Budget == minprice)
 							ptr->Day += (dayleft - i);
+						ptr = ptr->next;
 					}
 					break;
 				}
@@ -128,7 +131,7 @@ hotel_site_ptr HS_DAY(hotel_site_ptr head, int period, int sitenum) {  //도시의 
 				ptr = head;
 				maxsatis = -10000; //초기값
 				while (ptr != NULL) {
-					satis_day = ptr->Satisfaction - (300 * (ptr->Day - 1)); //날짜 환산 하루 묵을때마다 만족도 300씩 감소
+					satis_day = ptr->Satisfaction - (500 * (ptr->Day - 1)); //날짜 환산 하루 묵을때마다 만족도 500씩 감소
 					if (maxsatis < satis_day) {
 						maxsatis = satis_day;
 						select_day = ptr;
@@ -154,20 +157,26 @@ HT_RBnode_ptr HotelMatch(HT_RBnode_ptr root, int budget) { //예산보다 작으면서 �
 	
 
 	HT_RBnode_ptr ptr = root;
-	while (ptr != NULL) {
+	while (ptr != NULL) { //예산과 가장 가까운 노드
 		
 		if (ptr->Key== budget) {
-			return ptr;
+			break;
 		}
 		else if (ptr->Key < budget) {
-			if (ptr->right->Key==-1) return ptr;
+			if (ptr->right->Key == -1) break; //
 			ptr= ptr->right;
 		}
 		else {
-			if (ptr->left->Key == -1)
-				return HT_TREE_PREDECESSOR(ptr);
+			if (ptr->left->Key == -1) {
+				ptr = HT_TREE_PREDECESSOR(ptr);
+				break;
+			}
 			ptr = ptr->left;
 		}
+	}
+
+	while (ptr->rate < 2) { //호텔의 평점이 2이상이어야 한다.
+		ptr = HT_TREE_PREDECESSOR(ptr);
 	}
 	return ptr;
 }

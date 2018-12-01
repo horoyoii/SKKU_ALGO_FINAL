@@ -107,6 +107,7 @@ int askConfirmUI() {
 }
 
 void ReservationUI(graph_ptr gp, RSV_node_ptr *ReserveHead) {
+	fflush(stdin);
 	gotoxy(3, 1); printf("[예약하기] - "); textcolor(10); printf("[정보입력]"); textcolor(15); printf(" - [확인] ");
 	gotoxy(3, 3); printf("=================================================");
 	gotoxy(3, 5); printf("ID : ");
@@ -132,23 +133,28 @@ void ReservationUI(graph_ptr gp, RSV_node_ptr *ReserveHead) {
 			ShowTempInfo(gp, Data, StartPos, DestPos, budget);
 			if (askConfirmUI()) {
 				RSV_RB_INSERT(ReserveHead, id, Data, budget);
-				gotoxy(50, 29); printf("<<예약완료>>");
-				Sleep(5000);
+				gotoxy(50, 30); printf("<<예약완료>>");
+				gotoxy(50, 31); printf("메인화면 돌아가려면 enter 입력");
+				//Sleep(5000);
+				
 			}
 		}
 		else {
 			gotoxy(10, 20); printf("<<예산범위 초과>>");
-			Sleep(5000);
+			gotoxy(10, 21); printf("메인화면 돌아가려면 enter 입력");
+			//Sleep(5000);
 		}
 	}
 	else { // 없는 경우
 		gotoxy(10, 20); printf("<<경로없음>>");
-		Sleep(5000);
+		gotoxy(10, 21); printf("메인화면 돌아가려면 enter 입력");
+		//Sleep(5000);
 	}
-	
+	while (getchar() != '\n');//test
 }
 
 void ReservInput(int *StartPos, int *DestPos, char *id, int *Period, int *budget) {
+	
 	gotoxy(12, 5); fgets(id, 20, stdin); strtok(id, "\n");
 	gotoxy(12, 7); scanf("%d", StartPos);
 	gotoxy(12, 9); scanf("%d", DestPos);

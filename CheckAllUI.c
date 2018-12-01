@@ -65,6 +65,38 @@ void RSV_Inorder(RSV_node_ptr head) {
 	}
 }
 
+int Administratorlogin() {
+	//while (getchar() != '\n');
+	// 입력 ====================================================
+	char inputpassword[100], Check[2] = { 0, }; int i = 0;
+	gotoxy(2, 1); printf("[관리자 로그인이 필요합니다.]");
+	gotoxy(2, 3); printf("=================================================");
+	gotoxy(2, 4); printf("Password : ");
+	gotoxy(2, 5); printf("=================================================");
+	gotoxy(12, 4);
+	while (1) {
+		inputpassword[i] = getch();
+		if (inputpassword[i] != '\r') {
+			printf("*");
+			i++;
+		}
+		else break;
+	}
+	inputpassword[i] = 0;
+				   
+
+	
+	if (strcmp(inputpassword, Administratorpassword) == 0) {
+		gotoxy(2, 7); printf("[로그인 성공]");
+		Sleep(1000);
+		return 1;
+	}
+	else {
+		gotoxy(2, 7); printf("[비밀번호가 틀렸습니다.]");
+		gotoxy(2, 9); printf("메인화면 돌아가려면 enter 입력");
+		return 0;
+	}
+}
 
 /*
 void ShowReserveInfo(RSV_node_ptr head) {

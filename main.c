@@ -17,8 +17,9 @@ int main(void) {
 	while (1) {
 		switch (Stage) {
 		case RESERVATION:
-			ScreenRelease(); ScreenClearFunc();
+			ScreenRelease(); ScreenClearFunc(); 
 			ReservationUI(gp, &ReserveHead);
+			//Sleep(2000);
 			Stage = MAIN;
 			ScreenInit();
 			break;
@@ -36,7 +37,10 @@ int main(void) {
 			break;
 		case CHECKALL:
 			ScreenRelease(); ScreenClearFunc();
-			CheckAllUI(ReserveHead);
+			if (Administratorlogin() == 1) {
+				ScreenRelease(); ScreenClearFunc();
+				CheckAllUI(ReserveHead);
+			}
 			Stage = MAIN;
 			ScreenInit(); // Screen restart
 			while (getchar() != '\n');

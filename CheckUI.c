@@ -2,7 +2,7 @@
 
 
 void CheckUI(RSV_node_ptr *head) {
-	while (getchar() != '\n');
+	//while (getchar() != '\n');
 	// 입력 ====================================================
 	char inputId[100], Check[2] = { 0, };
 	gotoxy(2, 1); printf("[예약정보입력] - [확인]");
@@ -28,4 +28,5 @@ void CheckUI(RSV_node_ptr *head) {
 		gotoxy(2, 10); printf("메인화면 돌아가려면 enter 입력");
 		while (getchar() != '\n');
 	}
+	//while (getchar() != '\n');//test
 }

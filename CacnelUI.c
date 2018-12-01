@@ -25,7 +25,7 @@ int CancelUI(RSV_node_ptr *head) {
 		if (nKey == 'y' || nKey == 'Y') {
 			RSV_RB_DELETE(head, temp->Key);
 			gotoxy(50, 20); printf("취소되었습니다.");
-			Sleep(3000);
+			Sleep(1000);
 		}
 		else if (nKey == 'n' || nKey == 'N') {
 
@@ -37,9 +37,9 @@ int CancelUI(RSV_node_ptr *head) {
 	else {
 		gotoxy(2, 7); printf("<< 해당 정보 없음 >>");
 		gotoxy(2, 10); printf("메인화면 돌아가려면 enter 입력");
-		while (getchar() != '\n');
+		//while (getchar() != '\n');
 	}
-	//while (getchar() != '\n');
+	while (getchar() != '\n');
 
 	return 1;
 }
