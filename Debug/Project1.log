@@ -1,1 +1,4 @@
-﻿  Project1.vcxproj -> C:\Users\friend\GitHub\SKKU_ALGO_FINAL\Debug\Project1.exe
+﻿  CheckAllUI.c
+c:\users\friend\github\skku_algo_final\checkallui.c(79): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\conio.h(452): note: 'getch' 선언을 참조하십시오.
+  Project1.vcxproj -> C:\Users\friend\GitHub\SKKU_ALGO_FINAL\Debug\Project1.exe

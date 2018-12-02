@@ -74,13 +74,17 @@ int Administratorlogin() {
 	gotoxy(2, 4); printf("Password : ");
 	gotoxy(2, 5); printf("=================================================");
 	gotoxy(12, 4);
+	char ch;
 	while (1) {
-		inputpassword[i] = getch();
-		if (inputpassword[i] != '\r') {
-			printf("*");
-			i++;
+		ch = getch();
+		if(ch != '\0'){
+			inputpassword[i] = ch;
+			if (inputpassword[i] != '\r') {
+				printf("*");
+				i++;
+			}
+			else break;
 		}
-		else break;
 	}
 	inputpassword[i] = 0;
 				   
